@@ -29,5 +29,24 @@ class TestCalculoNumeros(unittest.TestCase):
         numero = ingrese_numero()
         self.assertEqual(numero, 999999)
 
+    @patch('builtins.input', return_value='-100')
+    def test_ingreso_negativo(self, patch_input):
+        """Test para verificar que se rechace un número negativo."""
+        with self.assertRaises(NumeroDebeSerPositivo):
+            ingrese_numero()
+    
+    @patch('builtins.input', return_value='-1')
+    def test_ingreso_negativo_uno(self, patch_input):
+        """Test para verificar que se rechace -1 como número negativo."""
+        with self.assertRaises(NumeroDebeSerPositivo):
+            ingrese_numero()
+    
+    @patch('builtins.input', return_value='-999999')
+    def test_ingreso_negativo_grande(self, patch_input):
+        """Test para verificar que se rechacen números negativos grandes."""
+        with self.assertRaises(NumeroDebeSerPositivo):
+            ingrese_numero()
+            
+            
 if __name__ == '__main__':
     unittest.main()
