@@ -47,6 +47,23 @@ class TestCalculoNumeros(unittest.TestCase):
         with self.assertRaises(NumeroDebeSerPositivo):
             ingrese_numero()
             
-            
+    @patch('builtins.input', return_value='AAA')
+    def test_ingreso_letras(self, patch_input):
+        """Test para verificar que se rechacen entradas de texto."""
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+    
+    @patch('builtins.input', return_value='')
+    def test_ingreso_vacio(self, patch_input):
+        """Test para verificar que se rechacen entradas vacías."""
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+    
+    @patch('builtins.input', return_value='12.34')
+    def test_ingreso_decimal(self, patch_input):
+        """Test para verificar que se rechacen números decimales (como texto con punto)."""
+        with self.assertRaises(ValueError):
+            ingrese_numero()
+                    
 if __name__ == '__main__':
     unittest.main()
